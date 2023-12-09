@@ -10,10 +10,25 @@ interface PoolFactory {
 contract AddSInfra {
 
     address private _factoryContractAddress;
+    address public owner;
 
-    constructor(address factoryContract) {
-        _factoryContractAddress = factoryContract;
+    constructor() {
+        owner = msg.sender;
     }
+
+    // modifier to check if the caller is Infra contract
+    modifier isOwner(address caller) {
+        require(caller == owner, "Unauthorized caller, only owner can call");
+        _;
+    }
+
+    function setFactoryContract(address factoryContract) isOwner(msg.sender) public{
+        _factoryContractAddress = factoryContract;
+    } 
+
+    function transferOwnership(address newOwner) isOwner(msg.sender) public{
+        owner = newOwner;
+    } 
 
     // function to get the advertiser data against their wallet address
     function getPoolsList() external view returns (address[] memory ) {
