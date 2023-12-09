@@ -16,9 +16,6 @@ contract Pool {
     // create our own paymaster
     address private immutable paymasterAddress = 0x00000f79B7FaF42EEBAdbA19aCc07cD08Af44789;
 
-    // array to store the list of all pools
-    address[] public pools;
-
     // constructor to store the infra contract address
     constructor(address deployer) {
         owner = deployer;
