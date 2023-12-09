@@ -11,7 +11,7 @@ contract Pool {
     // contract address of the AdS Infra Contract
     address public owner;
     // contract address of the AdS Wallet
-    address private immutable AdSWallet = 0x71296b2ACbFDd24dD1dd089cdAe8708BfD8cB738;
+    address private immutable AddSWallet = 0xa5FdD3CB3792E74CAc421Aa97fbcceFC859df7B4;
     // contract address of the paymaster wallet
     // create our own paymaster
     address private immutable paymasterAddress = 0x00000f79B7FaF42EEBAdbA19aCc07cD08Af44789;
@@ -32,19 +32,19 @@ contract Pool {
 
     // function to get the verifier address
     function getVerifier() external view returns (address) {
-        return AdSWallet;
+        return AddSWallet;
     }
 
     fallback() external payable {
         Paymaster paymasterContract = Paymaster(paymasterAddress);
 
-        paymasterContract.depositFor{value: msg.value}(AdSWallet);
+        paymasterContract.depositFor{value: msg.value}(AddSWallet);
     }
 
     receive() external payable {
         Paymaster paymasterContract = Paymaster(paymasterAddress);
 
-        paymasterContract.depositFor{value: msg.value}(AdSWallet);
+        paymasterContract.depositFor{value: msg.value}(AddSWallet);
     }
 
 }
