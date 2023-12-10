@@ -67,7 +67,10 @@ contract PoolFactory {
     }
 
     // function to deploy the advertiser contract
-    function deployAdvertiserContract(string calldata _name, string calldata _websiteUrl, address _walletAddress, uint8 _priorityPercentage, uint256 _poolCapital, string calldata _content, uint256 _minimumTransaction, string[] memory listOfIntegrators) external returns (address) {
+    function deployAdvertiserContract(string calldata _name, string calldata _websiteUrl, 
+    address _walletAddress, uint8 _priorityPercentage, uint256 _poolCapital, 
+    string calldata _content, uint256 _minimumTransaction, 
+    string[] memory listOfIntegrators) external returns (address) {
         advertiserData[_walletAddress].name = _name;
         advertiserData[_walletAddress].websiteUrl = _websiteUrl;
         advertiserData[_walletAddress].walletAddress = _walletAddress;
@@ -121,7 +124,7 @@ contract PoolFactory {
     }
 
     function getAdDetails(string calldata walletName) isCallerInfra(msg.sender) external view returns(string memory){
-        address poolAddress = listOfPoolsOfIntegrator[walletName][0];
+        address poolAddress = listOfPoolsOfIntegrator[walletName][listOfPoolsOfIntegrator[walletName].length - 1];
         return advertiserContract[poolAddress].content;
     }
 
